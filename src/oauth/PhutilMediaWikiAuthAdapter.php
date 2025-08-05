@@ -65,6 +65,11 @@ final class PhutilMediaWikiAuthAdapter extends PhutilOAuth1AuthAdapter {
 		return idx( $info, 'name' );
 	}
 
+	public function getAccountEmail() {
+		$info = $this->getUserInfo();
+		return idx( $info, 'email' );
+	}
+
 	public function getAdapterType() {
 		return 'mediawiki';
 	}
@@ -97,7 +102,7 @@ final class PhutilMediaWikiAuthAdapter extends PhutilOAuth1AuthAdapter {
 	}
 
 	protected function getAuthorizeTokenURI() {
-		return $this->getWikiPageURI( 'Special:OAuth/authorize' );
+		return $this->getWikiPageURI( 'Special:OAuth/authenticate' );
 	}
 
 	public function setAdapterDomain( $domain ) {
@@ -200,6 +205,7 @@ final class PhutilMediaWikiAuthAdapter extends PhutilOAuth1AuthAdapter {
 		$userinfo['groups'] = $identity->groups;
 		$userinfo['blocked'] = $identity->blocked;
 		$userinfo['editcount'] = $identity->editcount;
+		$userinfo['email'] = $identity->email;
 
 		return $userinfo;
 	}
